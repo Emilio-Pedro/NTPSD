@@ -44,7 +44,9 @@ int main(void)
     server_addr.sin_port = htons(PORT);
 
     struct ntp pack;
-    pack.t1 = time_double();
+    double testeoffset = 5.0; // simula um offset de 5 segundos
+
+    pack.t1 = time_double(); //+ testeoffset; // simula o envio do tempo com um offset de 5 segundos
     pack.t2 = 0;
     pack.t3 = 0;
 
