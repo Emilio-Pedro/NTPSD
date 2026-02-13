@@ -29,6 +29,8 @@ int main()
         printf("Erro ao criar socket\n");
         return 1;
     }
+    memset(&server_addr, 0, sizeof(server_addr));
+    memset(&client_addr, 0, sizeof(client_addr));
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = INADDR_ANY;
     server_addr.sin_port = htons(PORT);
@@ -38,13 +40,15 @@ int main()
         printf("Erro ao bindar socket\n");
         return 1;
     }
-
+    double tempo_servidor = time_double();
+    // time_t tempo_convertido = (time_t)tempo_servidor;
+    // printf("Hora do servidor: %s", ctime(&tempo_convertido));
     printf("Servidor iniciado na porta %d...\n", PORT);
 
     while (1)
     {
         struct ntp pack;
-
+        addr_len = sizeof(client_addr); // resetar o tamanho do endereço para cada recvfrom
         ssize_t n = recvfrom(socket_fd, &pack, sizeof(pack), 0, (struct sockaddr *)&client_addr, &addr_len);
         if (n < 0)
         {
@@ -60,7 +64,7 @@ int main()
 
         pack.t2 = time_double(); // momento de recebimento
 
-        usleep(4000); // Simulação de um atraso de 4ms
+        // usleep(4000); // Simulação de um atraso de 4ms
 
         pack.t3 = time_double(); // momento de envio
 
