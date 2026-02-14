@@ -7,7 +7,8 @@
 
 #define PORT 4444
 #define BUFFER 1024
-#define IP_SERVIDOR "127.0.0.1"
+//#define IP_SERVIDOR "127.0.0.1"
+#define IP_SERVIDOR "10.14.72.6" // linux matheus
 struct ntp
 {
     double t1, t2, t3;
